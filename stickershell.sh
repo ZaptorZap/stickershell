@@ -12,7 +12,7 @@ echo "splitting stickers to be compared. this could take a while"
 
 for page in "${sortedpages[@]}" ; do
 	echo "starting ${page:15:-4} (of $realpagecountnumber pages)"
-	convert $page -alpha off -fuzz 8% -fill none -draw "matte 0,0 floodfill" \( +clone -alpha extract -blur 0x2 -level 50x100% \) -alpha off -compose copy_opacity -composite work/pages/page${page:15:-4}.png # WARNING this is not to be edited without consulting sourcestickers/readme.md
+	convert $page -alpha off -fuzz 8% -fill none -draw "matte 0,0 floodfill" \( +clone -alpha extract -blur 0x2 -level 50x100% \) -alpha off -compose copy_opacity -composite work/pages/page${page:15:-4}.png # WARNING this is not to be edited without consulting sourcestickers/stickers/readme.md
 	for row in {1..4} ; do
 		for column in {1..8} ; do
 			stickernumber=$((column+(row*8)+(${page:15:-4}*32)-40))
@@ -38,7 +38,7 @@ realtargetcountnumber=${#realtargets[@]}
 echo "preliminary special world/shape sort check:"
 
 for target in "${sortedtargets[@]:0:16}" ; do
-errantpixels=$(compare -fuzz 10% -metric ae ./sourcestickers/${target:7} $target null: 2>&1)
+errantpixels=$(compare -fuzz 10% -metric ae ./sourcestickers/stickers/${target:7} $target null: 2>&1)
 if [[ $errantpixels -lt 3200 ]] ; then # about 8% incorrect
 	echo "${target:7} passes ($errantpixels<3000)"
 else
@@ -53,7 +53,7 @@ rm clearedstickers.txt missingstickers.txt
 printf "You raced in the Special Cup!\n%.0s" {1..30} >> clearedstickers.txt
 source=31
 declare -g -a found
-badstickers=(395 944 1005 1006 1007 1008 1009 1010 1011 1012) # these are, of course, those contained in sourcestickers/. 1st one frequently gets a significant amount of its white blown off. 2nd one was just being annoying. everything after that is a part of Mario Circuit. (and is therefore very annoying for some reason)
+badstickers=(395 944 1005 1006 1007 1008 1009 1010 1011 1012) # these are, of course, those contained in sourcestickers/stickers/. 1st one frequently gets a significant amount of its white blown off. 2nd one was just being annoying. everything after that is a part of Mario Circuit. (and is therefore very annoying for some reason)
 
 for target in "${sortedtargets[@]:30:1014}" ; do
 	errortolerance=4000
@@ -81,7 +81,7 @@ for target in "${sortedtargets[@]:30:1014}" ; do
 			errortolerance=5300
 		fi
 		missiontitle=$(head -n $source stickerdatabase.txt | tail -n -1)
-		errantpixels=$(compare -fuzz $fuzzfactor% -metric ae sourcestickers/$source.png $target null: 2>&1)
+		errantpixels=$(compare -fuzz $fuzzfactor% -metric ae sourcestickers/stickers/$source.png $target null: 2>&1)
 		if [[ $errantpixels -lt $errortolerance ]] ; then
 			echo "found: $missiontitle ($errantpixels<$errortolerance)"
 			echo "$missiontitle ($errantpixels<$errortolerance errant pixels)" >> clearedstickers.txt
