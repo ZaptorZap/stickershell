@@ -16,7 +16,7 @@ This project was developed on Linux. I would expect this to work on Windows (wit
 > This step is of **paramount importance**! HDR acts inconsistently, and you must have <ins>as identical a capture</ins> as given in this project.
 2. Open Mario Kart World on your Switch 2
 3. Navigate to the sticker collection (bottom/left icon on main menu)
-4. Ensure all stickers have been hovered over and **no red (`#eb3b3a`) ! is present on any page**. <ins>This could throw off detection.</ins>
+4. Ensure all stickers have been hovered over and **no red {!} label is present on any page**. <ins>This could throw off detection.</ins>
 5. Press Ⓧ(X) to sort by shape. The first page will be of stage emblems.
 6. Move your cursor to the **bottom left sticker**. 
 7. Select Shy Guy Bazaar as your ✅ sticker.
